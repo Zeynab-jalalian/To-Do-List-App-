@@ -11,18 +11,25 @@ function TodoList() {
     setTaskItems([...taskItems, typed]);
     setTyped("");
   }
+  function handleDeleteTask(index) {
+    setTaskItems(
+      taskItems.filter((item, itemIndex) => {
+        return itemIndex !== index;
+      }),
+    );
+  }
   // useEffect(() => {
   //   console.log(taskItems);
   // }, [taskItems]);
   return (
-    <div className="w-[400px] min-h-[300px] max-h-[600px] bg-white rounded-xl shadow-lg overflow-hidden">
+    <div className="w-100 min-h-75 max-h-150 bg-white rounded-xl shadow-lg overflow-hidden">
       <Header />
       <InputBox
         typed={typed}
         setTyped={setTyped}
         handleAddTask={handleAddTask}
       />
-      <TaskList taskItems={taskItems} />
+      <TaskList taskItems={taskItems} handleDeleteTask={handleDeleteTask} />
     </div>
   );
 }

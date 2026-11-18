@@ -1,6 +1,6 @@
 import { FaTrash } from "react-icons/fa";
 
-function TaskItem({ task }) {
+function TaskItem({ task, index, handleDeleteTask }) {
   return (
     <div className="flex items-center justify-between gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg cursor-pointer">
       <div className="flex items-center gap-3">
@@ -8,7 +8,10 @@ function TaskItem({ task }) {
         <span className="text-gray-800">{task}</span>
       </div>
 
-      <button className="text-red-500 hover:text-red-700 transition">
+      <button
+        className="text-red-500 hover:text-red-700 transition"
+        onClick={() => handleDeleteTask(index)}
+      >
         <FaTrash />
       </button>
     </div>
