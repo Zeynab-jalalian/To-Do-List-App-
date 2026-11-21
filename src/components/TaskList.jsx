@@ -1,5 +1,5 @@
 import TaskItem from "./TaskItem";
-function TaskList({ taskItems, handleDeleteTask }) {
+function TaskList({ taskItems, handleDeleteTask, handleToggleTask }) {
   return (
     <div className="flex flex-col gap-3 px-5 pb-5">
       {taskItems.map((item, index) => {
@@ -9,6 +9,7 @@ function TaskList({ taskItems, handleDeleteTask }) {
             key={index}
             index={index}
             handleDeleteTask={handleDeleteTask}
+            handleToggleTask={handleToggleTask}
           />
         );
       })}

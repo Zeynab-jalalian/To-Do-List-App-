@@ -8,7 +8,7 @@ function TodoList() {
   const [typed, setTyped] = useState("");
 
   function handleAddTask() {
-    setTaskItems([...taskItems, typed]);
+    setTaskItems([...taskItems, { text: typed, completed: false }]);
     setTyped("");
   }
   function handleDeleteTask(index) {
@@ -18,9 +18,19 @@ function TodoList() {
       }),
     );
   }
-  // useEffect(() => {
-  //   console.log(taskItems);
-  // }, [taskItems]);
+  function handleToggleTask(index) {
+    setTaskItems(
+      taskItems.map((item, itemIndex) => {
+        if (index === itemIndex) {
+          return { ...item, completed: !item.completed };
+        }
+        return item;
+      }),
+    );
+  }
+  useEffect(() => {
+    console.log(taskItems);
+  }, [taskItems]);
   return (
     <div className="w-100 min-h-75 max-h-150 bg-white rounded-xl shadow-lg overflow-hidden">
       <Header />
@@ -29,7 +39,11 @@ function TodoList() {
         setTyped={setTyped}
         handleAddTask={handleAddTask}
       />
-      <TaskList taskItems={taskItems} handleDeleteTask={handleDeleteTask} />
+      <TaskList
+        taskItems={taskItems}
+        handleDeleteTask={handleDeleteTask}
+        handleToggleTask={handleToggleTask}
+      />
     </div>
   );
 }
