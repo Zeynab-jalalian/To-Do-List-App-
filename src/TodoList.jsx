@@ -6,6 +6,8 @@ import TaskList from "./components/TaskList";
 function TodoList() {
   const [taskItems, setTaskItems] = useState([]);
   const [typed, setTyped] = useState("");
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editedText, setEditedText] = useState("");
 
   function handleAddTask() {
     setTaskItems([...taskItems, { text: typed, completed: false }]);
@@ -28,6 +30,22 @@ function TodoList() {
       }),
     );
   }
+  function handleEditTask(index) {
+    setEditingIndex(index);
+    setEditedText(taskItems[index].text);
+  }
+  function handleSaveEdit() {
+    setTaskItems(
+      taskItems.map((item, itemIndex) => {
+        if (itemIndex === editingIndex) {
+          return { ...item, text: editedText };
+        }
+
+        return item;
+      }),
+    );
+    setEditingIndex(null);
+  }
   useEffect(() => {
     console.log(taskItems);
   }, [taskItems]);
@@ -43,6 +61,11 @@ function TodoList() {
         taskItems={taskItems}
         handleDeleteTask={handleDeleteTask}
         handleToggleTask={handleToggleTask}
+        handleEditTask={handleEditTask}
+        editingIndex={editingIndex}
+        setEditedText={setEditedText}
+        editedText={editedText}
+        handleSaveEdit={handleSaveEdit}
       />
     </div>
   );
