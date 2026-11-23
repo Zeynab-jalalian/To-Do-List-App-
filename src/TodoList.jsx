@@ -4,7 +4,9 @@ import InputBox from "./components/InputBox";
 import TaskList from "./components/TaskList";
 
 function TodoList() {
-  const [taskItems, setTaskItems] = useState([]);
+  const [taskItems, setTaskItems] = useState(() => {
+    return JSON.parse(localStorage.getItem("tasks")) || [];
+  });
   const [typed, setTyped] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
   const [editedText, setEditedText] = useState("");
@@ -47,7 +49,7 @@ function TodoList() {
     setEditingIndex(null);
   }
   useEffect(() => {
-    console.log(taskItems);
+    localStorage.setItem("tasks", JSON.stringify(taskItems));
   }, [taskItems]);
   return (
     <div className="w-100 min-h-75 max-h-150 bg-white rounded-xl shadow-lg overflow-hidden">
